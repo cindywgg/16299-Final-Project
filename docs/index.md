@@ -5,9 +5,8 @@ title: Terrain Surveyor Snake Robot Simulation
 
 # Terrain Surveyor Snake Robot Simulation
 
-**Project:** Terrain Surveyor Snake Robot Simulation  
-**Platform:** MuJoCo & Python  
-**Core comparison:** Fixed Gait vs. Terrain-Adaptive Gait
+**Name:** Cindy Wang
+**Date:** May 10, 2026
 
 ---
 
