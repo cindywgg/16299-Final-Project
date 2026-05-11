@@ -90,7 +90,7 @@ The results from the final simulation run was:
 The video below shows the snake moving along the shortened terrain course. The robot moves forward along +Y and changes gait parameters as it enters different terrain regions.
 
 <video width="800" controls>
-  <source src="assets/snake_sim.mov" type="video/quicktime">
+  <source src="assets/snake_sim.mp4" type="video/mp4">
 </video>
 
 ---
