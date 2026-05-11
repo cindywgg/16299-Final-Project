@@ -88,6 +88,12 @@ The results from the final simulation run was:
 | Fixed gait | 7.010 | 0.078 | 0.030 | 0.058 | 1 (Success) |
 | Adaptive gait | 6.380 | 0.071 | 0.002 | 0.059 | 1 (Success) |
 
+The video below shows the snake moving along the shortened terrain course. The robot moves forward along +Y and changes gait parameters as it enters different terrain regions.
+
+<video width="800" controls>
+  <source src="assets/snake_sim.mov" type="video/mov">
+</video>
+
 ---
 
 ## 4. Results, Analysis, and Conclusion
