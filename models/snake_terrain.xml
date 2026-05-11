@@ -1,0 +1,202 @@
+<mujoco model="terrain_surveyor_snake">
+  <compiler angle="degree" coordinate="local"/>
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="RK4">
+    <flag contact="enable" energy="enable"/>
+  </option>
+
+  <visual>
+    <global azimuth="135" elevation="-25"/>
+    <quality shadowsize="2048"/>
+  </visual>
+
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1="0.85 0.85 0.85" rgb2="0.75 0.75 0.75"/>
+    <material name="gridmat" texture="grid" texrepeat="8 8" reflectance="0.1"/>
+  </asset>
+
+  <worldbody>
+    <light name="sun" pos="0 -3 6" dir="0 0 -1" directional="true" diffuse="0.9 0.9 0.9"/>
+    <camera name="track" mode="trackcom" pos="-3 -6 3.0" xyaxes="1 -0.15 0 0.08 0.45 1"/>
+
+    <geom name="infinite_collision_floor"
+          type="plane"
+          pos="0 0 0"
+          size="100 100 0.05"
+          material="gridmat"
+          rgba="0.28 0.28 0.28 1"
+          friction="1.0 0.02 0.001"/>
+
+    <geom name="terrain_normal"
+          type="box"
+          pos="0 0.5 0.003"
+          size="3.5 0.5 0.002"
+          rgba="0.65 0.65 0.65 1"
+          contype="0"
+          conaffinity="0"/>
+
+    <geom name="terrain_low_friction"
+          type="box"
+          pos="0 1.5 0.004"
+          size="3.5 0.5 0.002"
+          rgba="0.20 0.45 1.00 1"
+          contype="0"
+          conaffinity="0"/>
+
+    <geom name="terrain_high_friction"
+          type="box"
+          pos="0 2.5 0.005"
+          size="3.5 0.5 0.002"
+          rgba="0.25 0.80 0.25 1"
+          contype="0"
+          conaffinity="0"/>
+
+    <geom name="terrain_rough_base"
+          type="box"
+          pos="0 3.5 0.006"
+          size="3.5 0.5 0.002"
+          rgba="0.55 0.35 0.20 1"
+          contype="0"
+          conaffinity="0"/>
+
+    <geom name="terrain_slope_visual"
+          type="box"
+          pos="0 4.5 0.007"
+          size="3.5 0.5 0.002"
+          rgba="0.80 0.60 0.35 1"
+          contype="0"
+          conaffinity="0"/>
+
+    <geom name="bump_1"
+          type="box"
+          pos="-0.5 3.3 0.035"
+          size="0.12 0.12 0.05"
+          rgba="0.40 0.25 0.18 1"
+          contype="0"
+          conaffinity="0"/>
+    <geom name="bump_2"
+          type="box"
+          pos="0.4 3.55 0.045"
+          size="0.14 0.10 0.07"
+          rgba="0.40 0.25 0.18 1"
+          contype="0"
+          conaffinity="0"/>
+    <geom name="bump_3"
+          type="box"
+          pos="0.0 3.8 0.030"
+          size="0.10 0.14 0.04"
+          rgba="0.40 0.25 0.18 1"
+          contype="0"
+          conaffinity="0"/>
+
+
+    <!-- Root of the snake. The freejoint lets the complete robot translate and rotate in the world. -->
+    <body name="snake_root" pos="0 0 0.12">
+      <freejoint name="root_free"/>
+      <geom name="plink_01_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+      <body name="plink_02_box" pos="0 -0.10 0">
+        <joint name="plink_2_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+        <geom name="plink_02_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+        <body name="plink_03_box" pos="0 -0.10 0">
+          <joint name="plink_3_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+          <geom name="plink_03_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+          <body name="plink_04_box" pos="0 -0.10 0">
+            <joint name="plink_4_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+            <geom name="plink_04_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+            <body name="plink_05_box" pos="0 -0.10 0">
+              <joint name="plink_5_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+              <geom name="plink_05_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+              <body name="plink_06_box" pos="0 -0.10 0">
+                <joint name="plink_6_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                <geom name="plink_06_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                <body name="plink_07_box" pos="0 -0.10 0">
+                  <joint name="plink_7_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                  <geom name="plink_07_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                  <body name="plink_08_box" pos="0 -0.10 0">
+                    <joint name="plink_8_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                    <geom name="plink_08_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                    <body name="plink_09_box" pos="0 -0.10 0">
+                      <joint name="plink_9_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                      <geom name="plink_09_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                      <body name="plink_10_box" pos="0 -0.10 0">
+                        <joint name="plink_10_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                        <geom name="plink_10_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                        <body name="plink_11_box" pos="0 -0.10 0">
+                          <joint name="plink_11_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                          <geom name="plink_11_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                          <body name="plink_12_box" pos="0 -0.10 0">
+                            <joint name="plink_12_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                            <geom name="plink_12_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                            <body name="plink_13_box" pos="0 -0.10 0">
+                              <joint name="plink_13_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                              <geom name="plink_13_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                              <body name="plink_14_box" pos="0 -0.10 0">
+                                <joint name="plink_14_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                                <geom name="plink_14_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                                <body name="plink_15_box" pos="0 -0.10 0">
+                                  <joint name="plink_15_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                                  <geom name="plink_15_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                                  <body name="plink_16_box" pos="0 -0.10 0">
+                                    <joint name="plink_16_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                                    <geom name="plink_16_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                                    <body name="plink_17_box" pos="0 -0.10 0">
+                                      <joint name="plink_17_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                                      <geom name="plink_17_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                                      <body name="plink_18_box" pos="0 -0.10 0">
+                                        <joint name="plink_18_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                                        <geom name="plink_18_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                                        <body name="plink_19_box" pos="0 -0.10 0">
+                                          <joint name="plink_19_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                                          <geom name="plink_19_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                                          <body name="plink_20_box" pos="0 -0.10 0">
+                                            <joint name="plink_20_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                                            <geom name="plink_20_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                                            <body name="plink_21_box" pos="0 -0.10 0">
+                                              <joint name="plink_21_MOVE" type="hinge" axis="0 0 1" range="-25 25" damping="0.03" armature="0.001" limited="true"/>
+                                              <geom name="plink_21_box_geom" type="box" size="0.0500 0.0350 0.0500" mass="0.15" rgba="0.10 0.35 0.90 1" friction="1.0 0.02 0.001"/>
+                                            </body>
+                                          </body>
+                                        </body>
+                                      </body>
+                                    </body>
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="act_plink_2_MOVE" joint="plink_2_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_3_MOVE" joint="plink_3_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_4_MOVE" joint="plink_4_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_5_MOVE" joint="plink_5_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_6_MOVE" joint="plink_6_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_7_MOVE" joint="plink_7_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_8_MOVE" joint="plink_8_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_9_MOVE" joint="plink_9_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_10_MOVE" joint="plink_10_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_11_MOVE" joint="plink_11_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_12_MOVE" joint="plink_12_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_13_MOVE" joint="plink_13_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_14_MOVE" joint="plink_14_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_15_MOVE" joint="plink_15_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_16_MOVE" joint="plink_16_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_17_MOVE" joint="plink_17_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_18_MOVE" joint="plink_18_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_19_MOVE" joint="plink_19_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_20_MOVE" joint="plink_20_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+    <position name="act_plink_21_MOVE" joint="plink_21_MOVE" kp="10" ctrlrange="-0.436332 0.436332" forcerange="-10 10"/>
+  </actuator>
+</mujoco>

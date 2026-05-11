@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.DS_Store
+
+results/frames/
+results/*.gif
+results/*.png
+results/*.csv
+results/*.txt
+
+mujoco_env/
+venv/
+.env
