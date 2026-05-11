@@ -6,7 +6,6 @@ title: Terrain Surveyor Snake Robot Simulation
 # Terrain Surveyor Snake Robot Simulation
 
 **Name:** Cindy Wang
-**Date:** May 10, 2026
 
 ---
 
@@ -91,7 +90,7 @@ The results from the final simulation run was:
 The video below shows the snake moving along the shortened terrain course. The robot moves forward along +Y and changes gait parameters as it enters different terrain regions.
 
 <video width="800" controls>
-  <source src="assets/snake_sim.mov" type="video/mov">
+  <source src="assets/snake_sim.mov" type="video/quicktime">
 </video>
 
 ---
